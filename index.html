@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josefa Dania | Student Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            '850': '#172033'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-size: 100% auto;   /* stretch across full width */
+            background-repeat: repeat-y;  /* tile only vertically */
+            background-position: top center;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* Light/Dark background images */
+        .light-bg {
+            background-image: url("download.jpeg"); /* <- your light image */
+        }
+        .dark .dark-bg {
+            background-image: url("download1.jpeg");  /* <- your dark image */
+        }
+
+        /* Blob animation */
+        @keyframes blob {
+          0%   { transform: scale(1) translate(0px, 0px); }
+          33%  { transform: scale(1.05) translate(15px, -10px); }
+          66%  { transform: scale(0.95) translate(-15px, 10px); }
+          100% { transform: scale(1) translate(0px, 0px); }
+        }
+        .animate-blob {
+          animation: blob 8s infinite ease-in-out;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        .dark ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        
+        /* Card hover effect for dark mode */
+        .dark .scroll-animate > div {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .dark .scroll-animate > div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.15);
+        }
+        
+        /* Scroll-reveal animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="light-bg dark-bg text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-slate-900 dark:text-white">Josefa Dania</a>
+            <div class="hidden md:flex items-center space-x-8 font-medium text-slate-600 dark:text-slate-300">
+                <a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+                <a href="#education" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Education</a>
+                <a href="#experience" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Projects & Hackathons</a>
+                <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
+            </div>
+            <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 dark:focus:ring-offset-slate-900">
+                <svg id="theme-icon-light" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="theme-icon-dark" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+            <button id="mobile-menu-button" class="md:hidden p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white/90 dark:bg-slate-850/90 backdrop-blur-sm">
+            <a href="#home" class="block py-2 px-4 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Home</a>
+            <a href="#education" class="block py-2 px-4 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Education</a>
+            <a href="#experience" class="block py-2 px-4 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Experience</a>
+            <a href="#projects" class="block py-2 px-4 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Projects & Hackathons</a>
+            <a href="#contact" class="block py-2 px-4 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-center gap-16 pt-24 md:pt-0">
+            <div class="text-center md:text-left md:w-1/2 scroll-animate">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight text-slate-900 dark:text-white">Hi, I'm Josefa Dania</h1>
+                <p class="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto md:mx-0">A passionate 2nd year ECE student at Karunya Institute of Technology and Sciences, exploring the world of technology and innovation.</p>
+                <div class="mt-8 flex justify-center md:justify-start gap-4">
+                    <a href="#" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">Download Resume</a>
+                    <a href="https://www.linkedin.com/in/josefa-dania-569178330" target="_blank" class="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-all duration-300 transform hover:scale-105">View LinkedIn</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center items-center mt-8 md:mt-0 scroll-animate">
+                <div class="relative w-80 h-80 flex items-center justify-center">
+                    <div class="absolute inset-0">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+                             class="w-full h-full animate-blob text-blue-500 dark:text-blue-400">
+                            <path fill="currentColor" d="M45.5,-61.5C58.1,-54.5,68.3,-42.6,72.6,-28.6C76.9,-14.6,75.3,1.5,70.2,16.8C65,32,56.3,46.5,43.5,55.4C30.6,64.3,13.7,67.7,-1.9,70C-17.5,72.3,-35,73.5,-49.2,65.3C-63.3,57.1,-74.2,39.6,-77.6,20.2C-81,--.2,-76.9,-21.5,-65.9,-35.4C-54.9,-49.2,-37,-55.5,-20.1,-62.4C-3.2,-69.3,12.7,-76.8,27.5,-74.6C42.3,-72.5,55,-60.7,45.5,-61.5Z" transform="translate(100 100)" />
+                        </svg>
+                    </div>
+                    
+                    <img id="me.jpg" src="me.jpg"
+                         alt="Josefa Dania Portrait"
+                         class="relative w-56 h-56 rounded-full object-cover shadow-xl border-4 border-white dark:border-slate-800" />
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-24 md:py-32 scroll-animate">
+            <div class="w-full max-w-4xl mx-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl p-8 md:p-12 shadow-md">
+                <h2 class="text-4xl font-bold text-center mb-10 text-slate-900 dark:text-white">Education</h2>
+                <div>
+                    <h3 class="text-2xl font-semibold text-slate-900 dark:text-white">Bachelor of Technology in ECE</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">Karunya Institute of Technology and Sciences, Coimbatore</p>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Expected Graduation: 2027</p>
+                    <p class="mt-4 text-slate-600 dark:text-slate-300">Currently in my second year, building a strong foundation in core ECE concepts, with a keen interest in embedded systems and signal processing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-24 md:py-32 scroll-animate">
+            <div class="w-full max-w-4xl mx-auto text-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl p-8 md:p-12 shadow-md">
+                <h2 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Experience</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg">I'm currently seeking opportunities to apply my skills. My experience section is coming soon!</p>
+            </div>
+        </section>
+
+        <section id="projects" class="py-24 md:py-32 scroll-animate">
+            <div class="w-full max-w-4xl mx-auto text-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl p-8 md:p-12 shadow-md">
+                <h2 class="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Projects & Hackathons</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg">Exciting projects are in the works. Stay tuned for updates on my latest creations and hackathon participations!</p>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 md:py-32 scroll-animate">
+            <div class="w-full max-w-4xl mx-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-2xl p-8 md:p-12 shadow-md">
+                <h2 class="text-4xl font-bold text-center mb-10 text-slate-900 dark:text-white">Get In Touch</h2>
+
+                <form id="contact-form" class="space-y-6 max-w-xl mx-auto">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email ID</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="information" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Message</label>
+                        <textarea id="information" name="information" rows="4" required class="mt-1 block w-full bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="submit" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">Let's Connect</button>
+                    </div>
+                </form>
+
+                <div class="mt-12 text-center">
+                    <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">Or connect with me on:</h3>
+                    <div class="flex justify-center gap-6 mt-4">
+                        <a href="#" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-700 rounded-full hover:scale-110 hover:bg-slate-200 dark:hover:bg-slate-600 transition-transform duration-300" aria-label="Instagram">
+                            <svg class="w-8 h-8 text-[#E1306C]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7z"/>
+                                <circle cx="12" cy="12" r="3.5"></circle>
+                                <circle cx="17.5" cy="6.5" r="1.2"></circle>
+                            </svg>
+                        </a>
+                        <a href="#" target="_blank" class="p-3 bg-slate-100 dark:bg-slate-700 rounded-full hover:scale-110 hover:bg-slate-200 dark:hover:bg-slate-600 transition-transform duration-300" aria-label="WhatsApp">
+    <svg class="w-8 h-8 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 1.733.44 3.37 1.25 4.834L2 22l5.166-1.355A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zM8.01 7.422c.28-.145.573-.223.867-.223.235 0 .46.04.65.1.2.06.4.215.545.41.205.285.35.615.44 1 .09.385.09 1.17-.05 1.565-.14.39-.415.765-.81 1.11-.395.345-.755.62-1.03.815-.275.195-.495.36-.615.48-.12.12-.225.255-.315.39-.09.135-.165.285-.225.435-.06.15-.105.33-.135.525-.015.075-.03.165-.03.255 0 .255.09.495.27.675.18.18.405.285.675.285.255 0 .495-.09.69-.255.195-.165.42-.36.675-.585.495-.45.915-.945 1.23-1.455.22-.36.42-.72.585-1.08.165-.36.3-.705.405-1.02.105-.315.165-.63.165-.93 0-.6-.15-1.17-.45-1.68-.3-.51-.72-.9-1.26-1.17-.54-.27-1.14-.405-1.785-.405-.57 0-1.125.12-1.635.36-.51.24-.945.585-1.305 1.035-.36.45-.615.975-.765 1.575-.075.24-.045.48.09.675.135.195.33.3.54.3.195 0 .39-.075.555-.225.06-.075.12-.165.18-.285.15-.24.315-.45.51-.63z" />
+    </svg>
+</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8">
+        <p class="text-slate-500 dark:text-slate-400">© 2024 Josefa Dania. All Rights Reserved.</p>
+    </footer>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIconLight = document.getElementById('theme-icon-light');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const header = document.getElementById('header');
+
+            // THEME TOGGLE
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    themeIconLight.classList.add('hidden');
+                    themeIconDark.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIconLight.classList.remove('hidden');
+                    themeIconDark.classList.add('hidden');
+                }
+            };
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+            themeToggle.addEventListener('click', () => {
+                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            
+            // MOBILE MENU
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') mobileMenu.classList.add('hidden');
+            });
+            
+            // HEADER SCROLL EFFECT
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY > 50;
+                header.classList.toggle('bg-white/80', scrolled);
+                header.classList.toggle('dark:bg-slate-850/80', scrolled);
+                header.classList.toggle('backdrop-blur-sm', scrolled);
+                header.classList.toggle('shadow-md', scrolled);
+            });
+
+            // SCROLL ANIMATIONS
+            const sections = document.querySelectorAll('.scroll-animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            
+            // ===================================================================
+            // NEW CODE FOR EMAILJS
+            // ===================================================================
+            
+            // Initialize EmailJS with your Public Key
+            emailjs.init({
+              publicKey: "e9jdXq1I4rrM7WIGO", // Replace with your Public Key
+            });
+    
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevents the default page reload
+    
+                // These IDs are from your EmailJS account
+                const serviceID = 'service_75gq1lx';    // Replace with your Service ID
+                const templateID = 'template_5yloufe';  // Replace with your Template ID
+    
+                // Send the form data using EmailJS
+                emailjs.sendForm(serviceID, templateID, this)
+                    .then(() => {
+                        alert('Message sent successfully!');
+                        contactForm.reset(); // Clears the form fields after sending
+                    }, (err) => {
+                        alert('Failed to send message. Please try again.');
+                        console.log('EmailJS Error:', JSON.stringify(err));
+                    });
+            });
+            
+        });
+    </script>
+</body>
+</html>
